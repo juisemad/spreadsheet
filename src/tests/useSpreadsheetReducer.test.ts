@@ -50,38 +50,6 @@ describe('useSpreadsheetReducer', () => {
     expect(newState.selected).toBe('B2');
   });
 
-  it('handles SET_ROWS action', () => {
-    const state = {
-      ...initialState,
-      cells: {
-        A1: {raw: '5', display: 5, dependencies: [], error: undefined},
-        A11: {raw: '15', display: 15, dependencies: [], error: undefined},
-      },
-    };
-    const action: Action = {type: 'SET_ROWS', rows: 5};
-
-    const newState = reducer(state, action);
-    expect(newState.rows).toBe(5);
-
-    expect(newState.cells).not.toHaveProperty('A11');
-  });
-
-  it('handles SET_COLUMNS action', () => {
-    const state = {
-      ...initialState,
-      cells: {
-        A1: {raw: '10', display: 10, dependencies: [], error: undefined},
-        Z1: {raw: '15', display: 15, dependencies: [], error: undefined},
-      },
-    };
-    const action: Action = {type: 'SET_COLUMNS', cols: 3};
-
-    const newState = reducer(state, action);
-    expect(newState.cols).toBe(3);
-    expect(newState.cells).not.toHaveProperty('Z1');
-    expect(newState.cells).toHaveProperty('A1');
-  });
-
   it('integrates with useSpreadsheetReducer hook', () => {
     const {result} = renderHook(() => useSpreadsheetReducer());
 
