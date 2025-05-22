@@ -6,7 +6,6 @@ import Wrapper from './components/wrapper/Wrapper.tsx';
 import {SpreadsheetProvider} from './context/SpreadsheetContext';
 
 // P1 tasks:
-// todo: add deferred value to the inputs
 // todo: add memoization to the components
 
 // P2 tasks:

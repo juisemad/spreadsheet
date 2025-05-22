@@ -1,15 +1,19 @@
+import React, {useDeferredValue} from 'react';
+
 import styles from '../Table.styles.ts';
 
 import {Box} from '@mui/material';
 
-import useSpreadsheetContext from '../../../../hooks/useSpreadsheetContext.ts';
 import createLetters from '../utils/createLetters.ts';
 
-const TableHeadWithLetters = () => {
-  const {state} = useSpreadsheetContext();
-  const {cols} = state;
+interface Props {
+  cols: number;
+}
 
-  const letters = createLetters(cols);
+const TableHeadWithLetters: React.FC<Props> = ({cols}) => {
+  const deferredCols = useDeferredValue(cols);
+
+  const letters = createLetters(deferredCols);
 
   return (
     <>

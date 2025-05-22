@@ -17,22 +17,14 @@ interface CellData {
 export interface SpreadsheetState {
   cells: Record<CellAddress, CellData>;
   selected: CellAddress | null;
-  rows: number;
-  cols: number;
 }
 
 const initialState: SpreadsheetState = {
   cells: {},
   selected: null,
-  rows: 10,
-  cols: 10,
 };
 
-export type Action =
-  | {type: 'SET_CELL'; addr: string; raw: string}
-  | {type: 'SELECT_CELL'; addr: string}
-  | {type: 'SET_ROWS'; rows: number}
-  | {type: 'SET_COLUMNS'; cols: number};
+export type Action = {type: 'SET_CELL'; addr: string; raw: string} | {type: 'SELECT_CELL'; addr: string};
 
 const updateDependencies = (addr: string, newCells: Record<CellAddress, CellData>) => {
   const dependents = Object.entries(newCells).filter(([, cell]) => cell.dependencies.includes(addr));
@@ -72,18 +64,6 @@ export const reducer = (state: SpreadsheetState, action: Action): SpreadsheetSta
     }
     case 'SELECT_CELL':
       return {...state, selected: action.addr};
-    case 'SET_ROWS':
-      return {
-        ...state,
-        rows: action.rows,
-        cells: Object.fromEntries(Object.entries(state.cells).filter(([key]) => parseInt(key.slice(1)) <= action.rows)),
-      };
-    case 'SET_COLUMNS':
-      return {
-        ...state,
-        cols: action.cols,
-        cells: Object.fromEntries(Object.entries(state.cells).filter(([key]) => key.charCodeAt(0) - 65 < action.cols)),
-      };
     default:
       return state;
   }

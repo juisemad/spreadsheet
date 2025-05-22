@@ -4,16 +4,12 @@ import styles from '../Table.styles.ts';
 
 import {Box} from '@mui/material';
 
-import useSpreadsheetContext from '../../../../hooks/useSpreadsheetContext.ts';
-
 interface Props {
   children: React.ReactNode;
+  cols: number;
 }
 
-const TableWrapper: FC<Props> = ({children}) => {
-  const {state} = useSpreadsheetContext();
-  const {cols} = state;
-
+const TableWrapper: FC<Props> = ({children, cols}) => {
   return (
     <Box sx={styles.outerWrapper}>
       <Box sx={styles.innerWrapper(cols)}>{children}</Box>

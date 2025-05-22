@@ -4,18 +4,15 @@ import styles from '../Table.styles.ts';
 
 import {Box} from '@mui/material';
 
-import useSpreadsheetContext from '../../../../hooks/useSpreadsheetContext.ts';
 import createLetters from '../utils/createLetters.ts';
 import {Cell} from './Cell.tsx';
 
 interface Props {
   row: number;
+  cols: number;
 }
 
-const TableRow: FC<Props> = ({row}) => {
-  const {state} = useSpreadsheetContext();
-  const {cols} = state;
-
+const TableRow: FC<Props> = ({row, cols}) => {
   const letters = createLetters(cols);
 
   return (
