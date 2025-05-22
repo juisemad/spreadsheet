@@ -62,5 +62,5 @@ However, I added an error indication so a user could see that the cell is not va
 ```
 1. Clone the repo
 2. Run `npm install` to install the dependencies
-3. Run `npm start` to start the app
+3. Run `npm run dev` to start the app
 ```
