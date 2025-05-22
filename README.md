@@ -1,54 +1,66 @@
-# React + TypeScript + Vite
+# Spreadsheet demo for Honeydew
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## AC: 
+```
+1. The goal of the exercise is to check the following areas of expertise. Please find way to show them through the exercise:
+    1. Code structure, division into files and components ✅
+    2. Code clarity, attention to details ✅
+    3. Unit testing for relevant parts ✅
+    4. State management, interaction between components ✅
+    5. Routing ✅
+    6. Memoization 🤔 `(I used deferred values for the size controller values, memoization was avoided (comments below))`
+    7. Work with hooks ✅
+    8. Styling (no css files) ✅
+2. You can use MUI or other library for basic components. Please do not use any ready-made spreadsheet component. ✅
+3. **Please submit the exercise through git.** ✅
+4. **Please provide clear instructions for how to run the app.** ✅
 
-Currently, two official plugins are available:
+### Exercise
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create a “spreadsheet-like” component according to the following spec:
 
-## Expanding the ESLint configuration
+1. The component receives the size of the spreadsheet (X by Y cells). If the component is too large to fit in screen, it would allow scrolling. Rows are numbered by numbers and columns are numbered by letters. ✅
+2. Each cell can contain either:
+    1. A number ✅
+    2. A reference to another field (e.g. “=A1”) which will calculate it as that field + 1 (if =”A1” that calc the value of A1 + 1) ✅
+3. Each cell can be in one of two states:
+    1. Display - displays the result number after doing the necessary calculations ✅
+    2. Edit - allows editing the value/formula behind the field. Upon change, all relevant fields that somehow refer to this field, need to be updated as well. ✅
+4. Cell goes into edit mode when you double click on it. When done editing, you press enter, and the new value is displayed. If there’s an error, it is displayed and the cell remains in edit mode. ✅
+5. Add an edit bar on the top that would present the actual content of the currently selected cell value, and allow editing it. ✅
+6. You can assume that there are no circular references in the spreadsheet. ✅ `(But the case is covered)`
+7. Nicely looking styling. ✅ `(I am not UI/UX to judge, but I think it looks good)`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Additional complexities (bonuses):
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. In addition to reference, support a formula, which is always a summarization of either numbers or other fields (e.g. the supported format is “=SUM(A1, 4, B2, 4)”. “SUM” is the only supported function. ✅
+2. Detect circular references, and do not allow such field values (validation error). ✅
+````
+
+## Leftovers for the task:
+```
+ P1 tasks:
+- Revisit logic to potentially add more memoization
+Memoization conflicting with the live update feature that I value more for this demo. With each sell needed to be reevaluated to identify if the update if needed, memoization will not help.
+When the project is almost done, I have an idea of what I would try to add more memoization, but I need to change a lot for that.
+
+P2 tasks:
+- Think over change divs to tr, td, th
+Initially I did divs to speed up the render part and move to the 'fun' logic part.
+Yet with time I decided to leave it as is, at least for now, as it is a spreadsheet and not a table.
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Additional notes:
+```
+ Regarding Errors handling:
+I restricted the inputs for 'errored' cells to be closed by the 'Enter' key (as was described in AC), but allowed to double-click another one, as it's a common behaviour in Google Spreadsheet.
+However, I added an error indication so a user could see that the cell is not valid.
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## How to run the app:
+```
+1. Clone the repo
+2. Run `npm install` to install the dependencies
+3. Run `npm start` to start the app
 ```
