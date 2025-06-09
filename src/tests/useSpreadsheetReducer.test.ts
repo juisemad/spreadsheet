@@ -9,8 +9,6 @@ describe('useSpreadsheetReducer', () => {
     initialState = {
       cells: {},
       selected: null,
-      rows: 10,
-      cols: 10,
     };
   });
 

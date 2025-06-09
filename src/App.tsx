@@ -5,7 +5,6 @@ import {Spreadsheet} from './components/spreadsheet/Spreadsheet.tsx';
 import Wrapper from './components/wrapper/Wrapper.tsx';
 import {SpreadsheetProvider} from './context/SpreadsheetContext';
 
-
 const App = () => (
   <BrowserRouter>
     <Wrapper>
